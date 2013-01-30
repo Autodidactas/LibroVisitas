@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Libro de Visitas</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://localhost:8008/socket.io/socket.io.js"></script>
+	<script type="text/javascript">var socket = io.connect('http://localhost:8008');</script>
+	{% block js %}{% endblock js %}
+</head>
+<body>
+
+<header>
+	<nav>
+		<ul>
+			<li><a href="{% url index %}">Home</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="{% url libro %}">Libro de visitas (<span class="cuenta_comentarios">{{ comentarios.count }}</span>)</a></li>
+		</ul>
+	</nav>	
+</header>
+
+<section>
+	{% block contenido %}{% endblock contenido %}
+</section>
+
+<footer>
+	<h5>&copy; Copyright 2013</h5>
+</footer>
+
+</body>
+</html>

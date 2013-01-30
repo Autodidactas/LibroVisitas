@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block js %}
+	<script type="text/javascript">
+		socket.on('comentario nuevo', function(data){
+			data = eval('('+data+')');
+			$('#comentarios').html( $('#comentarios').html() + '<li> '+data.comentario+' - <em>'+data.autor+'</em></li>');
+			$('.cuenta_comentarios').html(data.cuenta_comentarios);
+		});
+		$(document).ready(function(){
+			$('#nuevo_comentario').bind('submit', function(e){
+				e.preventDefault();
+				var info = {};
+				info.autor = this.autor.value;
+				info.comentario = this.comentario.value;
+				socket.emit('nuevo comentario', info);
+			});
+		});
+	</script>
+{% endblock js %}
+
+{% block contenido %}
+	<h3>Libro de visitas (<span class="cuenta_comentarios">{{ comentarios.count }}</span>)</h3>
+	<ul id="comentarios">
+		{% for comentario in comentarios %}
+			<li>{{ comentario.comentario }} - <em>{{ comentario.autor }}</em></li>
+		{% empty %}
+			<li>No hay</li>
+		{% endfor %}
+	</ul>
+	<hr>
+	<form id="nuevo_comentario">
+		{{ comentario_form.as_p }}
+		<p><input type="submit" value="Enviar"></p>
+	</form>
+{% endblock contenido %}

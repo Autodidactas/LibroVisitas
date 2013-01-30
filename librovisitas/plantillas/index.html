@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block js %}
+	<script type="text/javascript">
+		socket.on('comentario nuevo', function(data){
+			data = eval('('+data+')');
+			$('.cuenta_comentarios').html(data.cuenta_comentarios);
+		});
+	</script>
+{% endblock js %}
+
+{% block contenido %}
+	<h3>Contenido</h3>
+{% endblock contenido %}
